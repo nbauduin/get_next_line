@@ -6,7 +6,7 @@
 /*   By: nbauduin <nbauduin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:09:19 by nbauduin          #+#    #+#             */
-/*   Updated: 2021/01/11 16:02:34 by nbauduin         ###   ########.fr       */
+/*   Updated: 2021/01/11 17:54:33 by nbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,12 @@ char	*fill_tmp(int fd, char *tmp)
 	read_result = 1;
 	if (!(buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (0);
-	buffer[BUFFER_SIZE] = '\0';
+//	buffer[BUFFER_SIZE] = '\0';
 	while (!ft_find_n(tmp) && read_result)
 	{
 		if ((read_result = read(fd, buffer, BUFFER_SIZE)) == -1)
 			return (0);
+		buffer[read_result] = '\0';
 		if (!(tmp = ft_join(tmp, buffer)))
 			return (0);
 	}
@@ -132,7 +133,7 @@ int		get_next_line(int fd, char **line)
 //	printf("tmp gardé %d : %s\n", i - 1, tmp);
 	return (1);
 }
-/*
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -143,8 +144,8 @@ int		main(void)
 	int		k;
 	int		l;
 
-	line = malloc(8 * sizeof(char*));
-	k = open("./test.txt", O_RDONLY);
+	line = malloc(170 * sizeof(char*));
+	k = open("64bit.txt", O_RDONLY);
 	l = 0;
 	while (get_next_line(k, line))
 	{
@@ -158,4 +159,4 @@ int		main(void)
 		l--;
 	}
 	free(line);
-}*/
+}
