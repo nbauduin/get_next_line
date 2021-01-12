@@ -135,6 +135,7 @@ char	*fill_tmp(int fd, char *tmp)
 	{
 		if ((read_result = read(fd, buffer, BUFFER_SIZE)) == -1)
 			return (0);
+		buffer[read_result] = '
 		if (!(tmp = ft_join(tmp, buffer)))
 			return (0);
 	}
@@ -163,8 +164,6 @@ int		get_next_line(int fd, char **line)
 		return (-1);
 	i++;
 //	printf("tmp avant keep %d\n", i - 1);
-	if (!ft_find_n(tmp))
-		return (0);
 	if (!(tmp = ft_keep_rest(tmp)))
 		return (-1);
 //	printf("tmp gardé %d : %s\n", i - 1, tmp);
