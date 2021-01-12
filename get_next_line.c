@@ -6,7 +6,7 @@
 /*   By: nbauduin <nbauduin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:09:19 by nbauduin          #+#    #+#             */
-/*   Updated: 2021/01/12 18:13:24 by nbauduin         ###   ########.fr       */
+/*   Updated: 2021/01/12 18:51:53 by nbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,11 +123,13 @@ int		get_next_line(int fd, char **line)
 		tmp = NULL;
 		return (0);
 	}
+//	if (!(*line = tmp_for_line(tmp)))
+//		return (-1);
 	if (!(tmp = ft_keep_rest(tmp)))
 		return (-1);
 	return (1);
 }
-/*
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -138,7 +140,7 @@ int		main(void)
 	int		k;
 	int		l;
 
-	k = open("64bit.txt", O_RDONLY);
+	k = open("test.txt", O_RDONLY);
 	l = 1;
 	while (get_next_line(k, &line))
 	{
@@ -146,7 +148,6 @@ int		main(void)
 		free(line);
 		l++;
 	}
-	printf("ligne %d : %s\n\n", l, line);
-	free(line);
+//	printf("last ligne %d : %s\n\n", l, line);
+//	free(line);
 }
-*/
