@@ -6,7 +6,7 @@
 /*   By: nbauduin <nbauduin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:09:19 by nbauduin          #+#    #+#             */
-/*   Updated: 2021/01/12 17:55:09 by nbauduin         ###   ########.fr       */
+/*   Updated: 2021/01/12 18:13:24 by nbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ char	*fill_tmp(int fd, char *tmp)
 		if (!(tmp = ft_join(tmp, buffer)))
 			return (0);
 	}
-//	printf("buffer %s\n", buffer);
 	free(buffer);
 	return (tmp);
 }
@@ -117,19 +116,15 @@ int		get_next_line(int fd, char **line)
 			return (-1);
 	if (!(tmp = fill_tmp(fd, tmp)))
 		return (-1);
-//	printf ("tmp hors fonction %s\n STOP \n", tmp);
 	if (!(*line = tmp_for_line(tmp)))
 		return (-1);
 	if (!ft_find_n(tmp))
 	{
 		tmp = NULL;
-		//free(tmp);
 		return (0);
 	}
-//	printf("tmp avant keep %d\n", i - 1);
 	if (!(tmp = ft_keep_rest(tmp)))
 		return (-1);
-//	printf("tmp gardé %d : %s\n", i - 1, tmp);
 	return (1);
 }
 /*
