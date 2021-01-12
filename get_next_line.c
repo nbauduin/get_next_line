@@ -6,7 +6,7 @@
 /*   By: nbauduin <nbauduin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:09:19 by nbauduin          #+#    #+#             */
-/*   Updated: 2021/01/11 17:54:33 by nbauduin         ###   ########.fr       */
+/*   Updated: 2021/01/12 17:55:09 by nbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,23 +67,24 @@ char	*ft_keep_rest(char *str)
 	return (result);
 }
 
-int		fill_line(char **line, char *str, int i)
+char	*tmp_for_line(char *tmp)
 {
-	int	j;
+	int		j;
+	char	*str;
 
 	j = 0;
-	while (str[j] != '\n' && str[j])
+	while (tmp[j] != '\n' && tmp[j])
 		j++;
-	if (!(line[i] = malloc(sizeof(char) * (j + 1))))
+	if (!(str = malloc(sizeof(char) * (j + 1))))
 		return (0);
-	(line[i])[j] = '\0';
+	str[j] = '\0';
 	j--;
 	while (j >= 0)
 	{
-		(line[i])[j] = str[j];
+		str[j] = tmp[j];
 		j--;
 	}
-	return (1);
+	return (str);
 }
 
 char	*fill_tmp(int fd, char *tmp)
@@ -94,7 +95,6 @@ char	*fill_tmp(int fd, char *tmp)
 	read_result = 1;
 	if (!(buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (0);
-//	buffer[BUFFER_SIZE] = '\0';
 	while (!ft_find_n(tmp) && read_result)
 	{
 		if ((read_result = read(fd, buffer, BUFFER_SIZE)) == -1)
@@ -110,53 +110,48 @@ char	*fill_tmp(int fd, char *tmp)
 
 int		get_next_line(int fd, char **line)
 {
-	static int	i;
 	static char	*tmp;
 
-	if (!i)
+	if (!tmp)
 		if (!(tmp = ft_initialize_tmp()))
 			return (-1);
 	if (!(tmp = fill_tmp(fd, tmp)))
 		return (-1);
 //	printf ("tmp hors fonction %s\n STOP \n", tmp);
+	if (!(*line = tmp_for_line(tmp)))
+		return (-1);
 	if (!ft_find_n(tmp))
 	{
-		free(tmp);
+		tmp = NULL;
+		//free(tmp);
 		return (0);
 	}
-	if (!(fill_line(line, tmp, i)))
-		return (-1);
-	i++;
 //	printf("tmp avant keep %d\n", i - 1);
 	if (!(tmp = ft_keep_rest(tmp)))
 		return (-1);
 //	printf("tmp gardé %d : %s\n", i - 1, tmp);
 	return (1);
 }
-
+/*
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 
 int		main(void)
 {
-	char	**line;
+	char	*line;
 	int		k;
 	int		l;
 
-	line = malloc(170 * sizeof(char*));
 	k = open("64bit.txt", O_RDONLY);
-	l = 0;
-	while (get_next_line(k, line))
+	l = 1;
+	while (get_next_line(k, &line))
 	{
-		printf("ligne %d : %s\n\n", l + 1, line[l]);
+		printf("ligne %d : %s\n\n", l, line);
+		free(line);
 		l++;
 	}
-	l--;
-	while (l >= 0)
-	{
-		free(line[l]);
-		l--;
-	}
+	printf("ligne %d : %s\n\n", l, line);
 	free(line);
 }
+*/

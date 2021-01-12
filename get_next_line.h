@@ -6,7 +6,7 @@
 /*   By: nbauduin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:51:27 by nbauduin          #+#    #+#             */
-/*   Updated: 2021/01/11 15:52:31 by nbauduin         ###   ########.fr       */
+/*   Updated: 2021/01/12 16:52:25 by nbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		ft_find_n(char *tmp);
 char	*ft_initialize_tmp(void);
 char	*ft_join(char *s1, char *s2);
 char	*ft_keep_rest(char *str);
-int		fill_line(char **line, char *str, int i);
+char	*tmp_for_line(char *tmp);
 char	*fill_tmp(int fd, char *tmp);
 int		get_next_line(int fd, char **line);
 
