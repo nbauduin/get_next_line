@@ -6,7 +6,7 @@
 /*   By: nbauduin <nbauduin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:09:19 by nbauduin          #+#    #+#             */
-/*   Updated: 2021/01/12 18:51:53 by nbauduin         ###   ########.fr       */
+/*   Updated: 2021/01/14 15:31:26 by nbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ int		get_next_line(int fd, char **line)
 {
 	static char	*tmp;
 
+	if (fd == -1 || !line || BUFFER_SIZE <= 0)
+		return (-1);
 	if (!tmp)
 		if (!(tmp = ft_initialize_tmp()))
 			return (-1);
@@ -123,8 +125,6 @@ int		get_next_line(int fd, char **line)
 		tmp = NULL;
 		return (0);
 	}
-//	if (!(*line = tmp_for_line(tmp)))
-//		return (-1);
 	if (!(tmp = ft_keep_rest(tmp)))
 		return (-1);
 	return (1);
@@ -148,6 +148,6 @@ int		main(void)
 		free(line);
 		l++;
 	}
-//	printf("last ligne %d : %s\n\n", l, line);
-//	free(line);
+	printf("last ligne %d : %s\n\n", l, line);
+	free(line);
 }
