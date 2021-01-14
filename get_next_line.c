@@ -6,7 +6,7 @@
 /*   By: nbauduin <nbauduin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:09:19 by nbauduin          #+#    #+#             */
-/*   Updated: 2021/01/14 15:31:26 by nbauduin         ###   ########.fr       */
+/*   Updated: 2021/01/14 15:53:33 by nbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,26 +128,4 @@ int		get_next_line(int fd, char **line)
 	if (!(tmp = ft_keep_rest(tmp)))
 		return (-1);
 	return (1);
-}
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-
-int		main(void)
-{
-	char	*line;
-	int		k;
-	int		l;
-
-	k = open("test.txt", O_RDONLY);
-	l = 1;
-	while (get_next_line(k, &line))
-	{
-		printf("ligne %d : %s\n\n", l, line);
-		free(line);
-		l++;
-	}
-	printf("last ligne %d : %s\n\n", l, line);
-	free(line);
 }
